@@ -1,6 +1,7 @@
 from typing import Iterable
 from tkinter import Tk, Button, Label
 from events import AddEventWindow
+from stat_bar import StatusBar
 
 
 class Notification(Tk):
@@ -27,7 +28,7 @@ class Notification(Tk):
         self.geometry(f"{winsize[0]}x{winsize[1]}+100+100") # spaces are not allowed!
         self.resizable(is_resizeble[0], is_resizeble[1])
 
-        self.label = Label(text="This is our first GUI!",
+        self.label = Label(text="My Notes",
                            background='gray35',
                            fg='dark orange',
                            font=('Helvetica', 10, 'bold'),
@@ -54,6 +55,9 @@ class Notification(Tk):
         btn_del.pack(anchor='w')
         btn_change.pack(anchor='w')
         btn_add.pack(anchor='w')
+
+        StatusBar(self)
+
         btn_exit.pack(pady=10, padx=10, anchor='se', side='bottom')
 
     # HANDLERS OF BUTTONS
