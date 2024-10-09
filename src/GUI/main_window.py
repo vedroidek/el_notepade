@@ -1,6 +1,6 @@
 from typing import Iterable
 from tkinter import Tk, Button, Label
-from add_new_event import AddEventWindow
+from events import AddEventWindow
 
 
 class Notification(Tk):
