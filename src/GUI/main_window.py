@@ -90,6 +90,6 @@ class Notification(Tk):
 
 if __name__ == "__main__":
     app = Notification(winsize=(800, 400), 
-                       title_='El Notepade, Amigo')
-    
+                       title_='El Notepade, Amigo')    
     app.mainloop()
+    
