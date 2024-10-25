@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 .el_np_venv
 *.db*
-for_samples.py
-gui_probe.py
+proj_description.txt
+static/

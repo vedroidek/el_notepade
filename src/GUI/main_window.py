@@ -1,6 +1,7 @@
 from typing import Iterable
-from tkinter import Tk, Button, Label
-from events import AddEventWindow
+from tkinter import Tk, Button
+from tkinter.ttk import Label
+from event_add import AddEventWindow
 from stat_bar import StatusBar
 
 
@@ -16,6 +17,7 @@ class Notification(Tk):
             whether to allow window resizing along the X and Y axes
             default: False X, False Y
     """
+
     def __init__(
             self,
             winsize: Iterable[int], 
@@ -30,9 +32,9 @@ class Notification(Tk):
 
         self.label = Label(text="My Notes",
                            background='gray35',
-                           fg='dark orange',
+                           foreground='dark orange',
                            font=('Helvetica', 10, 'bold'),
-                           padx=10, pady=6,
+                           padding=(10, 6),
                            relief='raised')
         self.label.pack(pady=10, padx=10)
 
@@ -40,21 +42,12 @@ class Notification(Tk):
         btn_exit = Button(
             self, text="Exit", 
             command=self.close,
-            padx=10,
-            pady=10,
-            fg='red3',
+            padx = 10, pady = 10,
+            foreground='red3',
             background='black',
             activebackground='medium blue'
             )
-        btn_add = Button(self, text="Add", command=self.new_event)
-        btn_del = Button(self, text="Del", command=self.del_event)
-        btn_change = Button(self, text="Change", command=self.change_event)
-        btn_get = Button(self, text="Show", command=self.get_event)
-        
-        btn_get.pack(anchor='w')
-        btn_del.pack(anchor='w')
-        btn_change.pack(anchor='w')
-        btn_add.pack(anchor='w')
+        self.main_btns()
 
         StatusBar(self)
 
@@ -64,7 +57,7 @@ class Notification(Tk):
     def new_event(self):
         window = AddEventWindow(
             title_='Add event',
-            size_='400x400'
+            size_='600x400'
         )
 
     def get_event(self):
@@ -86,10 +79,21 @@ class Notification(Tk):
     def close(self):
         """ Close main window. """
         return self.quit()
+    
+    def main_btns(self):
+        methods = {
+        'add': self.new_event,
+        'del': self.del_event,
+        'change': self.change_event,
+        'show': self.get_event
+        }
+
+        for key, val in methods.items():
+            Button(self, text=f"{key}", command=val).pack(anchor='w')
 
 
 if __name__ == "__main__":
     app = Notification(winsize=(800, 400), 
-                       title_='El Notepade, Amigo')    
+                       title_='El Notepade, Amigo v0.1.0')    
     app.mainloop()
     
