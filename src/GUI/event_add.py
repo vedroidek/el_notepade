@@ -1,13 +1,14 @@
 from enum import Enum
-from tkinter import Tk, StringVar
+from tkinter import Tk, StringVar, Toplevel
 from tkinter.ttk import Radiobutton, Frame, Style, Label
 
 
-class AddEventWindow(Tk):
-    def __init__(self, title_: str, size_: str, *args, **kwargs) -> None:
+class AddEventWindow(Toplevel):
+    def __init__(self, title_: str, size_x: int, size_y: int,
+                  *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.title(title_)
-        self.geometry(size_)
+        self.geometry(f'{size_x}x{size_y}')
 
         RadBtnsLvlsFrame(self)
 
@@ -34,6 +35,7 @@ class RadBtnsLvlsFrame(Frame):
             style='RB.TFrame',
             )
         self.pack(side='left', anchor='se')
+
         self.frame_style()
         self.chooise_lvl()
 
@@ -55,14 +57,7 @@ class RadBtnsLvlsFrame(Frame):
             Radiobutton(
                 self, text=f'{chs.value}', 
                 variable=val,
-                command=lambda: v.config(text=f'Value: {val.get()}'),
+                command=lambda: val.get(), # add label
                 value=chs,
                 style='RB.TRadiobutton'
                 ).pack(anchor='w')
-
-
-
-
-if __name__ == "__main__":
-    add = AddEventWindow(title_='Add event', size_='600x400')
-    add.mainloop()

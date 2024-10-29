@@ -57,7 +57,8 @@ class Notification(Tk):
     def new_event(self):
         window = AddEventWindow(
             title_='Add event',
-            size_='600x400'
+            size_x=600,
+            size_y=400
         )
 
     def get_event(self):
