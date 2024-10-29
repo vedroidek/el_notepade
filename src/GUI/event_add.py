@@ -9,13 +9,28 @@ class AddEventWindow(Toplevel):
         super().__init__(*args, **kwargs)
         self.title(title_)
         self.geometry(f'{size_x}x{size_y}')
-        self.grid_columnconfigure(0, minsize=100)
-        self.grid_columnconfigure(1, minsize=100)
 
+        self.configure_column()
+
+        self.rb_frame()
+        self.field_entry_title()
+
+    def configure_column(self, min_size: int=100):
+        """
+        Minimum grid cell width for a column.
+        """
+        self.grid_columnconfigure(0, minsize=min_size)
+        self.grid_columnconfigure(1, minsize=min_size)
+
+    def field_entry_title(self):
         tv = StringVar()
-        et = Entry(self, textvariable=tv, )
+        et = Entry(self, textvariable=tv)
         et.grid(column=0, row=0, padx=3, pady=3)
 
+    def rb_frame(self):
+        """
+        Initialize frame radio button.
+        """
         rb = RadBtnsLvlsFrame(self)
         rb.grid(column=0, row=3, padx=3, stick='w')
         
