@@ -1,6 +1,6 @@
 from enum import Enum
 from tkinter import Tk, StringVar, Toplevel
-from tkinter.ttk import Radiobutton, Frame, Style, Label
+from tkinter.ttk import Radiobutton, Frame, Style, Label, Entry
 
 
 class AddEventWindow(Toplevel):
@@ -9,8 +9,16 @@ class AddEventWindow(Toplevel):
         super().__init__(*args, **kwargs)
         self.title(title_)
         self.geometry(f'{size_x}x{size_y}')
+        self.grid_columnconfigure(0, minsize=100)
+        self.grid_columnconfigure(1, minsize=100)
 
-        RadBtnsLvlsFrame(self)
+        tv = StringVar()
+        et = Entry(self, textvariable=tv, )
+        et.grid(column=0, row=0, padx=3, pady=3)
+
+        rb = RadBtnsLvlsFrame(self)
+        rb.grid(column=0, row=3, padx=3, stick='w')
+        
 
 
 class LvlChooise(Enum):
@@ -34,7 +42,7 @@ class RadBtnsLvlsFrame(Frame):
             padding=[10, 10, 20, 10],
             style='RB.TFrame',
             )
-        self.pack(side='left', anchor='se')
+        # self.pack(side='left', anchor='se')
 
         self.frame_style()
         self.chooise_lvl()
@@ -51,13 +59,16 @@ class RadBtnsLvlsFrame(Frame):
         label_style.configure('RB.TRadiobutton',
                               font="system",
                               background='tan2')
+        
         val = StringVar()
+        v = Label(self, text='Value: ')
+        v.pack(side='bottom')
 
         for chs in LvlChooise:
             Radiobutton(
                 self, text=f'{chs.value}', 
                 variable=val,
-                command=lambda: val.get(), # add label
+                command=lambda: v.config(text=f'{val.get().rsplit(".")[-1]}'),
                 value=chs,
                 style='RB.TRadiobutton'
                 ).pack(anchor='w')
