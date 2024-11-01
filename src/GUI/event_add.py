@@ -1,38 +1,67 @@
 from enum import Enum
+from typing import Optional
 from tkinter import Tk, StringVar, Toplevel
 from tkinter.ttk import Radiobutton, Frame, Style, Label, Entry
 
 
 class AddEventWindow(Toplevel):
+    """
+    +--------+--------+--------+
+    | title  |  text  |  date  |
+    +--------+--------+--------+
+    | entry  |descript|dt_entry|
+    +--------+--------+--------+
+    |rad_btns| clear  |btns y/n|
+    +--------+--------+--------+
+    """
     def __init__(self, title_: str, size_x: int, size_y: int,
                   *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.title(title_)
         self.geometry(f'{size_x}x{size_y}')
+        self.minsize(width=600, height=400)
 
-        self.configure_column()
+        self.configure_column(columns=2, min_size=200)
+        self.configure_row()
 
-        self.rb_frame()
+        self.title_label()
         self.field_entry_title()
+        self.field_entry_description()
+        self.rb_frame()
 
-    def configure_column(self, min_size: int=100):
+    def title_label(self, headers: Optional[tuple[str]]=None):
+        headers = ("Title of event", 'Description', 'Date')
+        for idx, title in enumerate(headers):
+            elem = Label(self, text=title)
+            elem.grid(column=idx, row=0, sticky='w', padx=20)
+
+    def configure_column(self, columns: int, min_size: int=100):
         """
         Minimum grid cell width for a column.
         """
-        self.grid_columnconfigure(0, minsize=min_size)
-        self.grid_columnconfigure(1, minsize=min_size)
+        for col_num in range(columns): 
+            self.grid_columnconfigure(col_num, minsize=min_size)
+
+    def configure_row(self):
+        self.grid_rowconfigure(index=1, minsize=20)
+        self.grid_rowconfigure(index=2, minsize=100)
 
     def field_entry_title(self):
         tv = StringVar()
         et = Entry(self, textvariable=tv)
-        et.grid(column=0, row=0, padx=3, pady=3)
+        et.grid(column=0, row=1, padx=3, pady=3)
+
+    def field_entry_description(self):
+        tv = StringVar()
+        ed = Entry(self, textvariable=tv)
+        ed.grid(column=1, row=1, rowspan=3, sticky='ns')
 
     def rb_frame(self):
         """
         Initialize frame radio button.
         """
         rb = RadBtnsLvlsFrame(self)
-        rb.grid(column=0, row=3, padx=3, stick='w')
+        rb.grid(column=0, row=3, padx=3, ipady=5, stick='w')
         
 
 
