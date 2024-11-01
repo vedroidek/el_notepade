@@ -6,13 +6,25 @@ from tkinter.ttk import Radiobutton, Frame, Style, Label, Entry
 
 class AddEventWindow(Toplevel):
     """
-    +--------+--------+--------+
-    | title  |  text  |  date  |
-    +--------+--------+--------+
-    | entry  |descript|dt_entry|
-    +--------+--------+--------+
-    |rad_btns| clear  |btns y/n|
-    +--------+--------+--------+
+    +----------+---------------+
+    |   title  |  entry_title  |
+    +----------+---------------+
+    |          | clear_button  |
+    +----------+---------------+
+    | descript |entry_descript |
+    +----------+               +
+    |radio_btns|               |
+    +  frame   +---------------+
+    |          | clear_button  |
+    +----------+---------------+
+    | #|  date |   dd/mm/YY    |
+    +----------+---------------+
+    | #|  time |   hh:mm[:ss]  |
+    +----------+---------------+
+    |clear_all |save  | cancel |
+    +----------+---------------+
+    |                  | exit  |
+    +--------------------------+
     """
     def __init__(self, title_: str, size_x: int, size_y: int,
                   *args, **kwargs) -> None:
