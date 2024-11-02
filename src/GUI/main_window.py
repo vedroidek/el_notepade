@@ -1,6 +1,6 @@
 from typing import Iterable
-from tkinter import Tk, messagebox, Button
-from tkinter.ttk import Label
+from tkinter import Tk, messagebox, Button, BOTTOM
+from tkinter.ttk import Label, Frame
 from event_add import AddEventWindow
 from stat_bar import StatusBar
 
@@ -27,21 +27,27 @@ class Notification(Tk):
         super().__init__(*args, **kwargs)
         self.title(title_)
         self.geometry(f"{winsize[0]}x{winsize[1]}+100+100") # spaces are not allowed!
+        self.minsize(800, 400)
         self.resizable(is_resizeble[0], is_resizeble[1])
 
-        self.label = Label(text="My Notes",
+        StatusBar(self)
+
+        self.name_app()
+        EventDisplayFrame(self)
+
+        # BUTTONS #
+        self.quit_btn()        
+        self.main_btns()
+
+    def name_app(self, name: str=None):
+        self.label = Label(text=name or "My Notes",
                            background='gray35',
                            foreground='dark orange',
                            font=('Helvetica', 10, 'bold'),
                            padding=(10, 6),
                            relief='raised')
-        self.label.pack(pady=10, padx=10)
-
-        StatusBar(self)
-
-        # BUTTONS #
-        self.quit_btn()        
-        self.main_btns()
+        self.grid_rowconfigure(0, )
+        self.label.pack()
 
     # HANDLERS OF BUTTONS
     def new_event(self):
@@ -93,11 +99,22 @@ class Notification(Tk):
         }
 
         for key, val in methods.items():
-            Button(self, text=f"{key}", command=val).pack(anchor='w')
+            Button(self, text=f"{key}", command=val, height=2, width=10).pack(anchor='w')
+
+
+class EventDisplayFrame(Frame):
+    def __init__(self, master: 'Tk'):
+        super().__init__(master=master,
+                         width=20, height=20,
+                         borderwidth=1,
+                         relief='sunken')
+        self.pack()
+        
 
 
 if __name__ == "__main__":
     app = Notification(winsize=(800, 400), 
-                       title_='El Notepade, Amigo v0.1.0')    
+                       title_='El Notepade, Amigo v0.1.0',
+                       is_resizeble=(False, True))    
     app.mainloop()
     
