@@ -98,7 +98,6 @@ class RadBtnsLvlsFrame(Frame):
             padding=[10, 10, 20, 10],
             style='RB.TFrame',
             )
-        # self.pack(side='left', anchor='se')
 
         self.frame_style()
         self.chooise_lvl()
