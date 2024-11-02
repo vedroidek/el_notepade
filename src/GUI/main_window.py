@@ -1,5 +1,5 @@
 from typing import Iterable
-from tkinter import Tk, Button
+from tkinter import Tk, messagebox, Button
 from tkinter.ttk import Label
 from event_add import AddEventWindow
 from stat_bar import StatusBar
@@ -25,7 +25,6 @@ class Notification(Tk):
             is_resizeble: Iterable[bool]=(False, False),
             *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        # self.iconbitmap(f'/home/max/python_proj/el_notepade/src/GUI/icon.ico')
         self.title(title_)
         self.geometry(f"{winsize[0]}x{winsize[1]}+100+100") # spaces are not allowed!
         self.resizable(is_resizeble[0], is_resizeble[1])
@@ -38,20 +37,11 @@ class Notification(Tk):
                            relief='raised')
         self.label.pack(pady=10, padx=10)
 
-        # BUTTONS #
-        btn_exit = Button(
-            self, text="Exit", 
-            command=self.close,
-            padx = 10, pady = 10,
-            foreground='red3',
-            background='black',
-            activebackground='medium blue'
-            )
-        self.main_btns()
-
         StatusBar(self)
 
-        btn_exit.pack(pady=10, padx=10, anchor='se', side='bottom')
+        # BUTTONS #
+        self.quit_btn()        
+        self.main_btns()
 
     # HANDLERS OF BUTTONS
     def new_event(self):
@@ -77,9 +67,22 @@ class Notification(Tk):
         window.title("Delete event")
         window.geometry("400x300")
 
-    def close(self):
-        """ Close main window. """
-        return self.quit()
+    def quit_btn(self):
+        btn_exit = Button(
+            self, text="Exit", 
+            command=lambda: self.check(title='Quit', message='Are you sure?'),
+            padx = 10, pady = 10,
+            foreground='red3',
+            background='black',
+            activebackground='medium blue'
+            )
+        btn_exit.pack(pady=10, padx=10, anchor='se', side='bottom')
+
+    def check(self, title :str, message: str):
+        """ Close main window. """        
+        answer = messagebox.askyesno(title=title, message=message)
+        if answer:
+            self.quit()
     
     def main_btns(self):
         methods = {
