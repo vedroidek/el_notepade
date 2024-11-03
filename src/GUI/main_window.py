@@ -1,5 +1,5 @@
 from typing import Iterable
-from tkinter import Tk, messagebox, Button, BOTTOM
+from tkinter import Tk, messagebox, Button, Listbox, Variable
 from tkinter.ttk import Label, Frame
 from event_add import AddEventWindow
 from stat_bar import StatusBar
@@ -33,7 +33,7 @@ class Notification(Tk):
         StatusBar(self)
 
         self.name_app()
-        EventDisplayFrame(self)
+        EventDisplayFrame(self).pack()
 
         # BUTTONS #
         self.quit_btn()        
@@ -108,7 +108,13 @@ class EventDisplayFrame(Frame):
                          width=20, height=20,
                          borderwidth=1,
                          relief='sunken')
-        self.pack()
+        
+        
+    def events_listbox(self, events: Iterable[str]):
+        languages = ["Python", "JavaScript", "C#", "Java"]
+        languages_var = Variable(value=languages)        
+        languages_listbox = Listbox(listvariable=languages_var)        
+        languages_listbox.pack()
         
 
 
