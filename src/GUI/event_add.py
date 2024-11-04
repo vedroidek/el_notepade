@@ -6,7 +6,6 @@ from tkcalendar import DateEntry
 from DB.init_db import EventManager
 
 
-
 class AddEventWindow(Toplevel):
     def __init__(self, title_: str, size_x: int, size_y: int,
                  *args, **kwargs) -> None:
@@ -86,7 +85,8 @@ class AddEventWindow(Toplevel):
         """
         Initialize frame radio button.
         """
-        rb = RadBtnsLvlsFrame(self)  # Expected type 'Tk', got 'AddEventWindow' instead
+        rb = RadBtnsLvlsFrame(
+            self)  # Expected type 'Tk', got 'AddEventWindow' instead
         rb.grid(column=0, row=3, padx=3, ipady=5, stick='w')
 
     def create_buttons(self):
@@ -96,7 +96,8 @@ class AddEventWindow(Toplevel):
         save_button = Button(self, text="Save", command=self.save_event)
         save_button.grid(column=0, row=5, padx=5, pady=5)
 
-        clear_button = Button(self, text="Clear everything", command=self.clear_fields)
+        clear_button = Button(self, text="Clear everything",
+                              command=self.clear_fields)
         clear_button.grid(column=1, row=5, padx=5, pady=5)
 
         exit_button = Button(self, text="Exit", command=self.confirm_exit)
@@ -122,7 +123,6 @@ class AddEventWindow(Toplevel):
         event_manager.create_event(title, description, date, time)
         events = event_manager.get_events()
         event_manager.close()
-
 
     def clear(self):
         """
@@ -160,6 +160,7 @@ class RadBtnsLvlsFrame(Frame):
 
     params : master - parent vidget, must be type of 'tkinter.Tk'
     """
+
     def __init__(self, master: 'Tk'):
         super().__init__(
             master,
@@ -167,33 +168,33 @@ class RadBtnsLvlsFrame(Frame):
             relief='sunken',
             padding=[10, 10, 20, 10],
             style='RB.TFrame',
-            )
+        )
 
         self.frame_style()
         self.chooise_lvl()
 
-    def frame_style(self, font: str=None, background: str=None):
+    def frame_style(self, font: str = None, background: str = None):
         """ Set background of frame using by `Style`. """
         s = Style()
         s.configure(f'RB.{self.winfo_class()}',
                     background='tan2',
                     foreground="#004D40")
-            
+
     def chooise_lvl(self):
         label_style = Style()
         label_style.configure('RB.TRadiobutton',
                               font="system",
                               background='tan2')
-        
+
         val = StringVar()
         v = Label(self, text='Value: ')
         v.pack(side='bottom')
 
         for chs in LvlChooise:
             Radiobutton(
-                self, text=f'{chs.value}', 
+                self, text=f'{chs.value}',
                 variable=val,
                 command=lambda: v.config(text=f'{val.get().rsplit(".")[-1]}'),
                 value=chs,
                 style='RB.TRadiobutton'
-                ).pack(anchor='w')
+            ).pack(anchor='w')

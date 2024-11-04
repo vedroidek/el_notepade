@@ -33,11 +33,12 @@ class Notification(Tk):
         StatusBar(self)
 
         self.name_app()
-        EventDisplayFrame(self).pack()
 
         # BUTTONS #
         self.quit_btn()        
         self.main_btns()
+
+        EventDisplayFrame(self)
 
     def name_app(self, name: str=None):
         self.label = Label(text=name or "My Notes",
@@ -47,12 +48,6 @@ class Notification(Tk):
                            padding=(10, 6),
                            relief='raised')
         self.label.pack(pady=10, padx=10)
-
-        StatusBar(self)
-
-        # BUTTONS #
-        self.quit_btn()        
-        self.main_btns()
 
     # HANDLERS OF BUTTONS
     def new_event(self):
@@ -104,7 +99,7 @@ class Notification(Tk):
         }
 
         for key, val in methods.items():
-            Button(self, text=f"{key}", command=val, height=2, width=10).pack(anchor='w')
+            Button(self, text=f"{key}", command=val, height=2, width=10).pack(anchor='nw')
 
 
 class EventDisplayFrame(Frame):
@@ -114,11 +109,9 @@ class EventDisplayFrame(Frame):
                          borderwidth=1,
                          relief='sunken')
         
-        
-    def events_listbox(self, events: Iterable[str]):
-        languages = ["Python", "JavaScript", "C#", "Java"]
-        languages_var = Variable(value=languages)        
-        languages_listbox = Listbox(listvariable=languages_var)        
-        languages_listbox.pack()
+        self.events_listbox(events=[f'{2**i}' for i in range(40)])
 
-    
+    def events_listbox(self, events: Iterable[str]):
+        languages_var = Variable(value=events)        
+        languages_listbox = Listbox(listvariable=languages_var)        
+        languages_listbox.pack(anchor='center')
