@@ -3,7 +3,8 @@ from typing import Optional
 from tkinter import Tk, StringVar, Toplevel, messagebox, Entry
 from tkinter.ttk import Radiobutton, Frame, Style, Label, Button
 from tkcalendar import DateEntry
-from src.DB.init_db import EventManager
+from DB.init_db import EventManager
+
 
 
 class AddEventWindow(Toplevel):

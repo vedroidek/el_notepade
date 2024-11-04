@@ -1,8 +1,8 @@
 from typing import Iterable
 from tkinter import Tk, messagebox, Button
 from tkinter.ttk import Label
-from event_add import AddEventWindow
-from stat_bar import StatusBar
+from GUI.event_add import AddEventWindow
+from GUI.stat_bar import StatusBar
 
 
 class Notification(Tk):
@@ -96,8 +96,8 @@ class Notification(Tk):
             Button(self, text=f"{key}", command=val).pack(anchor='w')
 
 
-if __name__ == "__main__":
-    app = Notification(winsize=(800, 400), 
-                       title_='El Notepade, Amigo v0.1.0')    
-    app.mainloop()
+# if __name__ == "__main__":
+#     app = Notification(winsize=(800, 400), 
+#                        title_='El Notepade, Amigo v0.1.0')    
+#     app.mainloop()
     

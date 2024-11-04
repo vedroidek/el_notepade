@@ -1,4 +1,1 @@
-import os
-
-
-BASE_DIR = os.getcwd()
+import DB, GUI, static
