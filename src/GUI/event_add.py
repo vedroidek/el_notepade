@@ -3,6 +3,8 @@ from typing import Optional
 from tkinter import Tk, StringVar, Toplevel, messagebox, Entry
 from tkinter.ttk import Radiobutton, Frame, Style, Label, Button
 from tkcalendar import DateEntry
+from DB.init_db import EventManager
+
 
 
 class AddEventWindow(Toplevel):
@@ -84,7 +86,7 @@ class AddEventWindow(Toplevel):
         """
         Initialize frame radio button.
         """
-        rb = RadBtnsLvlsFrame(self)
+        rb = RadBtnsLvlsFrame(self)  # Expected type 'Tk', got 'AddEventWindow' instead
         rb.grid(column=0, row=3, padx=3, ipady=5, stick='w')
 
     def create_buttons(self):
@@ -112,13 +114,15 @@ class AddEventWindow(Toplevel):
         date = self.date_var.get()
         time = self.time_var.get()
 
-        # Здесь можно добавить код для сохранения информации о событии
-
         if not title or not description or not date or not time:
             messagebox.showerror("Error", "Please fill in all the fields.")
             return
 
-        print(f"The event is saved: {title}, {description}, {date}, {time}")
+        event_manager = EventManager('my_database')
+        event_manager.create_event(title, description, date, time)
+        events = event_manager.get_events()
+        event_manager.close()
+
 
     def clear(self):
         """
@@ -164,7 +168,6 @@ class RadBtnsLvlsFrame(Frame):
             padding=[10, 10, 20, 10],
             style='RB.TFrame',
             )
-        # self.pack(side='left', anchor='se')
 
         self.frame_style()
         self.chooise_lvl()

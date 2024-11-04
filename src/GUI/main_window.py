@@ -1,8 +1,8 @@
 from typing import Iterable
-from tkinter import Tk, messagebox, Button, Listbox, Variable
+from tkinter import Tk, messagebox, Button, Variable, Listbox
 from tkinter.ttk import Label, Frame
-from event_add import AddEventWindow
-from stat_bar import StatusBar
+from GUI.event_add import AddEventWindow
+from GUI.stat_bar import StatusBar
 
 
 class Notification(Tk):
@@ -46,8 +46,13 @@ class Notification(Tk):
                            font=('Helvetica', 10, 'bold'),
                            padding=(10, 6),
                            relief='raised')
-        self.grid_rowconfigure(0, )
-        self.label.pack()
+        self.label.pack(pady=10, padx=10)
+
+        StatusBar(self)
+
+        # BUTTONS #
+        self.quit_btn()        
+        self.main_btns()
 
     # HANDLERS OF BUTTONS
     def new_event(self):
@@ -115,12 +120,5 @@ class EventDisplayFrame(Frame):
         languages_var = Variable(value=languages)        
         languages_listbox = Listbox(listvariable=languages_var)        
         languages_listbox.pack()
-        
 
-
-if __name__ == "__main__":
-    app = Notification(winsize=(800, 400), 
-                       title_='El Notepade, Amigo v0.1.0',
-                       is_resizeble=(False, True))    
-    app.mainloop()
     
