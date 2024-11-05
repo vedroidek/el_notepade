@@ -26,6 +26,7 @@ class StatusBar(Frame):
                           relief='sunken', anchor='w',
                           textvariable=self.dt_string)
         statusbar.pack(anchor='s', side='bottom', fill='x')
+        self.place(x = 0, y = 0)
 
 
 class ClockThread(Thread):

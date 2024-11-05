@@ -31,14 +31,11 @@ class Notification(Tk):
         self.resizable(is_resizeble[0], is_resizeble[1])
 
         StatusBar(self)
-
-        self.name_app()
-
-        # BUTTONS #
-        self.quit_btn()        
-        self.main_btns()
-
+        MainButtonsFrame(self)
         EventDisplayFrame(self)
+
+        self.name_app() 
+        self.quit_btn()
 
     def name_app(self, name: str=None):
         self.label = Label(text=name or "My Notes",
@@ -47,7 +44,7 @@ class Notification(Tk):
                            font=('Helvetica', 10, 'bold'),
                            padding=(10, 6),
                            relief='raised')
-        self.label.pack(pady=10, padx=10)
+        self.label.place(relx=0.5, anchor='n')
 
     # HANDLERS OF BUTTONS
     def new_event(self):
@@ -82,36 +79,52 @@ class Notification(Tk):
             background='black',
             activebackground='medium blue'
             )
-        btn_exit.pack(pady=10, padx=10, anchor='se', side='bottom')
+        btn_exit.place(relx=0.93, rely=0.83)
 
     def check(self, title :str, message: str):
         """ Close main window. """        
         answer = messagebox.askyesno(title=title, message=message)
         if answer:
             self.quit()
+
+
+class MainButtonsFrame(Frame):
+    def __init__(self, master: 'Tk'):
+        super().__init__(
+            master=master,
+            relief='flat')
+        self.place(anchor='w', rely=0.45)
+
+        self.main_btns()
+
     
     def main_btns(self):
         methods = {
-        'add': self.new_event,
-        'del': self.del_event,
-        'change': self.change_event,
-        'show': self.get_event
+        'add': {'event': Notification.new_event, 'color': 'green'},
+        'show': {'event': Notification.get_event, 'color': 'yellow'},
+        'change': {'event': Notification.change_event, 'color': 'yellow'},
+        'del': {'event': Notification.del_event, 'color': 'red'},
         }
 
         for key, val in methods.items():
-            Button(self, text=f"{key}", command=val, height=2, width=10).pack(anchor='nw')
+            Button(self, text=f"{key}",
+                   background=val['color'],
+                   command=val['event'], height=2,
+                   width=10).pack()
+    
 
 
 class EventDisplayFrame(Frame):
     def __init__(self, master: 'Tk'):
-        super().__init__(master=master,
-                         width=20, height=20,
-                         borderwidth=1,
-                         relief='sunken')
+        super().__init__(
+            master=master,
+            relief='sunken'
+            )
+        self.place(relx=0.2, rely=0.2, relheight=0.5, relwidth=0.5)
         
         self.events_listbox(events=[f'{2**i}' for i in range(40)])
 
     def events_listbox(self, events: Iterable[str]):
         languages_var = Variable(value=events)        
-        languages_listbox = Listbox(listvariable=languages_var)        
-        languages_listbox.pack(anchor='center')
+        languages_listbox = Listbox(self, listvariable=languages_var)
+        languages_listbox.pack(expand=1, fill='both')
