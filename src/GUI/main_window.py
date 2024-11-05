@@ -53,33 +53,6 @@ class Notification(Tk):
                            relief='raised')
         self.label.place(relx=0.5, anchor='n', relwidth=0.2)
 
-    # # HANDLERS OF BUTTONS
-    # def new_event(self):
-    #     """
-    #     Open a new window to add an event.
-    #     """
-    #     window = AddEventWindow(
-    #         title_='Add event',
-    #         size_x=600,
-    #         size_y=400
-    #     )
-
-    # def get_event(self):
-    #     """ Show event. """
-    #     pass
-
-    # def change_event(self):
-    #     """ Change event if already exists. """
-    #     window = Tk()
-    #     window.title("Change event")
-    #     window.geometry("400x300")
-
-    # def del_event(self):
-    #     """ Delete event. """
-    #     window = Tk()
-    #     window.title("Delete event")
-    #     window.geometry("400x300")
-
     def quit_btn(self):
         """
         Button for close to application.
