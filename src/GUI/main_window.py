@@ -51,34 +51,34 @@ class Notification(Tk):
                            font=('Helvetica', 10, 'bold'),
                            padding=(10, 6),
                            relief='raised')
-        self.label.place(relx=0.5, anchor='n')
+        self.label.place(relx=0.5, anchor='n', relwidth=0.2)
 
-    # HANDLERS OF BUTTONS
-    def new_event(self):
-        """
-        Open a new window to add an event.
-        """
-        window = AddEventWindow(
-            title_='Add event',
-            size_x=600,
-            size_y=400
-        )
+    # # HANDLERS OF BUTTONS
+    # def new_event(self):
+    #     """
+    #     Open a new window to add an event.
+    #     """
+    #     window = AddEventWindow(
+    #         title_='Add event',
+    #         size_x=600,
+    #         size_y=400
+    #     )
 
-    def get_event(self):
-        """ Show event. """
-        pass
+    # def get_event(self):
+    #     """ Show event. """
+    #     pass
 
-    def change_event(self):
-        """ Change event if already exists. """
-        window = Tk()
-        window.title("Change event")
-        window.geometry("400x300")
+    # def change_event(self):
+    #     """ Change event if already exists. """
+    #     window = Tk()
+    #     window.title("Change event")
+    #     window.geometry("400x300")
 
-    def del_event(self):
-        """ Delete event. """
-        window = Tk()
-        window.title("Delete event")
-        window.geometry("400x300")
+    # def del_event(self):
+    #     """ Delete event. """
+    #     window = Tk()
+    #     window.title("Delete event")
+    #     window.geometry("400x300")
 
     def quit_btn(self):
         """
@@ -118,10 +118,10 @@ class MainButtonsFrame(Frame):
         Creating main buttons for working with events.
         """
         methods = {
-            'add': {'name': Notification.new_event, 'color': 'green'},
-            'show': {'name': Notification.get_event, 'color': 'yellow'},
-            'change': {'name': Notification.change_event, 'color': 'yellow'},
-            'del': {'name': Notification.del_event, 'color': 'red'},
+            'add': {'name': self.new_event, 'color': 'green'},
+            'show': {'name': self.get_event, 'color': 'yellow'},
+            'change': {'name': self.change_event, 'color': 'yellow'},
+            'del': {'name': self.del_event, 'color': 'red'},
         }
 
         for btn_name, event in methods.items():
@@ -129,6 +129,33 @@ class MainButtonsFrame(Frame):
                    background=event['color'],
                    command=event['name'], height=2,
                    width=10).pack()
+            
+    # HANDLERS OF BUTTONS
+    def new_event(self):
+        """
+        Open a new window to add an event.
+        """
+        window = AddEventWindow(
+            title_='Add event',
+            size_x=600,
+            size_y=400
+        )
+
+    def get_event(self):
+        """ Show event. """
+        pass
+
+    def change_event(self):
+        """ Change event if already exists. """
+        window = Tk()
+        window.title("Change event")
+        window.geometry("400x300")
+
+    def del_event(self):
+        """ Delete event. """
+        window = Tk()
+        window.title("Delete event")
+        window.geometry("400x300")
 
 
 class EventDisplayFrame(Frame):
