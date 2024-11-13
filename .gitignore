@@ -164,4 +164,5 @@ cython_debug/
 .el_np_venv
 *.db*
 proj_description.txt
-static/
+static/favicon.ico
+favicon.ico

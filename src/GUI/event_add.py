@@ -3,7 +3,7 @@ from typing import Optional
 from tkinter import Tk, StringVar, Toplevel, messagebox, Entry
 from tkinter.ttk import Radiobutton, Frame, Style, Label, Button
 from tkcalendar import DateEntry
-from DB.init_db import EventManager
+# from DB.init_db import EventManager
 
 
 class AddEventWindow(Toplevel):
@@ -119,10 +119,10 @@ class AddEventWindow(Toplevel):
             messagebox.showerror("Error", "Please fill in all the fields.")
             return
 
-        event_manager = EventManager('my_database')
-        event_manager.create_event(title, description, date, time)
-        events = event_manager.get_events()
-        event_manager.close()
+        # event_manager = EventManager('my_database')
+        # event_manager.create_event(title, description, date, time)
+        # events = event_manager.get_events()
+        # event_manager.close()
 
     def clear(self):
         """

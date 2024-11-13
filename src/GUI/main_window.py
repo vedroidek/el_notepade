@@ -1,6 +1,7 @@
+import os
 from typing import Iterable
-from tkinter import Tk, messagebox, Button, Variable, Listbox
-from tkinter.ttk import Label, Frame
+from tkinter import Tk, messagebox, Button, Listbox, StringVar
+from tkinter.ttk import Label, Frame, Scrollbar
 from GUI.event_add import AddEventWindow
 from GUI.stat_bar import StatusBar
 
@@ -32,12 +33,19 @@ class Notification(Tk):
         self.minsize(800, 400)
         self.resizable(is_resizeble[0], is_resizeble[1])
 
-        StatusBar(self)
-        MainButtonsFrame(self)
-        EventDisplayFrame(self)
+        sb = StatusBar(self)
+        mbf = MainButtonsFrame(self)
+        edf = EventDisplayFrame(self)
 
         self.name_app()
         self.quit_btn()
+
+        events = StringVar()
+        events_list = Listbox(edf, listvariable=events)
+        scrollbar = Scrollbar(orient='vertical', command=events_list.yview)
+        events_list.yview_scroll = scrollbar.set
+        
+        events_list.pack(expand=1, fill='both')
 
     def name_app(self, name: str = None):
         """ 
@@ -126,9 +134,7 @@ class MainButtonsFrame(Frame):
 
     def del_event(self):
         """ Delete event. """
-        window = Tk()
-        window.title("Delete event")
-        window.geometry("400x300")
+        pass
 
 
 class EventDisplayFrame(Frame):
@@ -141,13 +147,3 @@ class EventDisplayFrame(Frame):
             relief='sunken'
         )
         self.place(relx=0.2, rely=0.2, relheight=0.5, relwidth=0.5)
-
-        self.events_listbox(events=[f'{2**i}' for i in range(40)]) # THIS SAMPLE EXAMPLE
-
-    def events_listbox(self, events: Iterable[str]):
-        """
-        Box of display all events.
-        """
-        languages_var = Variable(value=events)
-        languages_listbox = Listbox(self, listvariable=languages_var)
-        languages_listbox.pack(expand=1, fill='both')
