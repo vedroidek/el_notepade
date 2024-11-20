@@ -3,6 +3,7 @@ from tkinter import Tk, messagebox, Button
 from tkinter.ttk import Label
 from GUI.event_add import AddEventWindow
 from GUI.stat_bar import StatusBar
+from GUI.event_redact import ChangeEventWindow
 
 
 class Notification(Tk):
@@ -57,9 +58,11 @@ class Notification(Tk):
 
     def change_event(self):
         """ Change event if already exists. """
-        window = Tk()
-        window.title("Change event")
-        window.geometry("400x300")
+        window = ChangeEventWindow(
+            title_='Change event',
+            size_x=600,
+            size_y=400
+        )
 
     def del_event(self):
         """ Delete event. """
