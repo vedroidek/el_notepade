@@ -107,7 +107,7 @@ class AddEventWindow(Toplevel):
 
     def save_event(self):
         """
-        Save event in DB. In process...
+        Save event in DB.
         """
         title = self.title_var.get()
         description = self.description_var.get()
@@ -120,7 +120,7 @@ class AddEventWindow(Toplevel):
 
         event_manager = EventManager('my_database')
         event_manager.create_event(title, description, date, time)
-        events = event_manager.get_events()
+        # events = event_manager.get_events()
         event_manager.close()
 
 
